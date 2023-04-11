@@ -1,10 +1,9 @@
 ## HW1: Scala + SBT + Json
 
 ### JAR
-Build
-`sbt shell > assembly`
+Build `sbt shell > assembly`
 
-Result`target/scala-2.13/HW1_CountriesApp-assembly-0.1.0-SNAPSHOT.jar`
+Result `target/scala-2.13/HW1_CountriesApp-assembly-0.1.0-SNAPSHOT.jar`
 
 ### Usage
 ```bash
