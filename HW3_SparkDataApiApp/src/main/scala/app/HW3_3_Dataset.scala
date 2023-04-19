@@ -12,6 +12,12 @@ object HW3_3_Dataset extends App {
   val srcTaxiPath = "src/main/resources/data/yellow_taxi_jan_25_2018"
   val srcTaxiZonesPath = "src/main/resources/data/taxi_zones.csv"
 
+  val dbHost = "localhost:5432"
+  val dbName = "pg_test_db"
+  val url = s"jdbc:postgresql://$dbHost/$dbName"
+  val dbTable = "distance_distribution"
+  val dbUser = "docker"
+
   implicit val spark = initSparkSession("Spark_Data_API_App")
 
   import spark.implicits._
@@ -54,10 +60,10 @@ object HW3_3_Dataset extends App {
 
   resultDS.toDF.write.format("jdbc")
     .mode(SaveMode.Append)
-    .option("url", "jdbc:postgresql://localhost:5432/pg_test_db")
-    .option("user", "docker")
-    .option("password", "docker")
-    .option("dbtable", "distance_distribution")
+    .option("url", url)
+    .option("user", dbUser)
+    .option("password", dbUser)
+    .option("dbtable", dbTable)
     .option("driver", "org.postgresql.Driver")
     .save()
 
