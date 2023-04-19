@@ -1,33 +1,50 @@
-## HW2: Scala + Hadoop FileSystem API
+## HW3: DataFrame + RDD + Dataset
 
 ### Task
-https://github.com/Gorini4/hadoop_course_homework/tree/master/hw1
+https://github.com/vzaigrin/otus/tree/main/SparkHomework/HW3
 
-### HDFS (before changes)
+### Task 1: DataFrame
 ```bash
-root@datanode:/# hdfs dfs -ls -R /
-drwxrwxrwx   - root      supergroup          0 2023-04-11 08:12 /stage
-drwxrwxrwx   - root      supergroup          0 2023-04-11 08:12 /stage/date=2020-12-01
--rwxrwxrwx   3 root      supergroup       6148 2023-04-11 08:12 /stage/date=2020-12-01/.DS_Store
--rwxrwxrwx   3 root      supergroup          0 2023-04-11 08:12 /stage/date=2020-12-01/part-0000.csv
--rwxrwxrwx   3 root      supergroup        596 2023-04-11 08:12 /stage/date=2020-12-01/part-0001.csv.inprogress
-drwxrwxrwx   - root      supergroup          0 2023-04-11 08:12 /stage/date=2020-12-02
--rwxrwxrwx   3 root      supergroup       1740 2023-04-11 08:12 /stage/date=2020-12-02/part-0000.csv.inprogress
-drwxrwxrwx   - root      supergroup          0 2023-04-11 08:12 /stage/date=2020-12-03
--rwxrwxrwx   3 root      supergroup       2595 2023-04-11 08:12 /stage/date=2020-12-03/part-0000.csv
--rwxrwxrwx   3 root      supergroup        634 2023-04-11 08:12 /stage/date=2020-12-03/part-0001.csv
--rwxrwxrwx   3 root      supergroup       1332 2023-04-11 08:12 /stage/date=2020-12-03/part-0002.csv
++-------------+----------+
+|      Borough|TripsCount|
++-------------+----------+
+|    Manhattan|    296527|
+|       Queens|     13819|
+|     Brooklyn|     12672|
+|      Unknown|      6714|
+|        Bronx|      1589|
+|          EWR|       508|
+|Staten Island|        64|
++-------------+----------+
 ```
 
-### HDFS (after changes)
+### Task 2: RDD
 ```bash
-root@datanode:/# hdfs dfs -ls -R /
-drwxr-xr-x   - n_kurkina supergroup          0 2023-04-11 08:25 /ods
-drwxr-xr-x   - n_kurkina supergroup          0 2023-04-11 08:25 /ods/date=2020-12-01
--rw-r--r--   3 n_kurkina supergroup        596 2023-04-11 08:25 /ods/date=2020-12-01/part.csv
-drwxr-xr-x   - n_kurkina supergroup          0 2023-04-11 08:25 /ods/date=2020-12-02
--rw-r--r--   3 n_kurkina supergroup       1740 2023-04-11 08:25 /ods/date=2020-12-02/part.csv
-drwxr-xr-x   - n_kurkina supergroup          0 2023-04-11 08:25 /ods/date=2020-12-03
--rw-r--r--   3 n_kurkina supergroup       4561 2023-04-11 08:25 /ods/date=2020-12-03/part.csv
-drwxrwxrwx   - root      supergroup          0 2023-04-11 08:25 /stage
+09:51:56 18
+19:48:51 17
+19:54:47 17
+14:32:01 17
+22:38:40 17
+18:24:54 16
+19:11:41 16
+09:25:26 16
+20:47:38 15
+15:39:38 15
+21:46:07 15
+...
+```
+
+### Task 3: Dataset
+```bash
+pg_test_db=# select * from distance_distribution ;
+    borough    | trips_count |   mean_distance    |    std_distance    | min_distance | max_distance 
+---------------+-------------+--------------------+--------------------+--------------+--------------
+ Manhattan     |      296527 | 2.1818937229998903 | 2.6307171623374805 |            0 |        37.92
+ Queens        |       13819 |  8.712971995079211 |  5.557884808639987 |            0 |         51.6
+ Brooklyn      |       12672 |   6.88587436868688 | 4.7724725598440365 |            0 |         44.8
+ Unknown       |        6714 |  3.451726243669959 |  5.603374652105368 |            0 |           66
+ Bronx         |        1589 |  9.052913782253006 |   5.41745600838284 |            0 |        31.18
+ EWR           |         508 |  16.97218503937008 |  4.864870222043952 |            0 |        45.98
+ Staten Island |          64 | 19.485468749999995 |   7.64428429066242 |            0 |        33.78
+(7 rows)
 ```
